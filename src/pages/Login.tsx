@@ -22,13 +22,76 @@ const Login = () => {
 		}
 	};
 
+	const pageStyle: React.CSSProperties = {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		minHeight: "100vh",
+		backgroundColor: "#f5f5f5",
+		fontFamily: "Arial, sans-serif",
+		padding: "20px",
+	};
+
+	const formStyle: React.CSSProperties = {
+		backgroundColor: "#fff",
+		padding: "30px 40px",
+		borderRadius: "8px",
+		boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+		display: "flex",
+		flexDirection: "column",
+		width: "100%",
+		maxWidth: "400px",
+	};
+
+	const inputStyle: React.CSSProperties = {
+		padding: "10px 12px",
+		marginBottom: "15px",
+		borderRadius: "4px",
+		border: "1px solid #ccc",
+		fontSize: "16px",
+	};
+
+	const buttonStyle: React.CSSProperties = {
+		padding: "10px 15px",
+		borderRadius: "4px",
+		border: "1px solid #ccc",
+		backgroundColor: "#fff",
+		color: "#000",
+		fontWeight: "bold",
+		cursor: "pointer",
+		transition: "background-color 0.2s",
+	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-			<input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-			<button type="submit">Login</button>
-		</form>
+		<div style={pageStyle}>
+			<form style={formStyle} onSubmit={handleSubmit}>
+				<h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
+				<input
+					style={inputStyle}
+					type="email"
+					placeholder="Email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					required
+				/>
+				<input
+					style={inputStyle}
+					type="password"
+					placeholder="Password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					required
+				/>
+				<button
+					type="submit"
+					style={buttonStyle}
+					onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#e0e0e0")}
+					onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
+				>
+					Login
+				</button>
+			</form>
+		</div>
 	);
 };
 
