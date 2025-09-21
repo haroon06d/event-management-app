@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# Frontend Setup Instructions
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This frontend is a **React + TypeScript** application for the Event Management System. It communicates with the backend to handle authentication, event browsing, registration, and admin management.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 1. Clone the Repo
 
-### `npm start`
+```bash
+git clone https://github.com/haroon06d/event-management-app.git
+cd event-management-app
+```
+## 2. Install Dependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install all frontend dependencies:
+```bash
+npm install
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Dependencies include:
 
-### `npm test`
+- react – UI library
+- react-dom – DOM rendering for React
+- react-router-dom – Routing for SPA
+- axios – API requests
+- jwt-decode – Decode JWT tokens
+- react-scripts – Scripts for React app
+- @testing-library/* – Testing utilities
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Dev Dependencies:
 
-### `npm run build`
+- typescript – TypeScript support
+- @types/react / @types/react-dom – Type definitions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 3. App Routes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- /login > Login page
+- /signup > Signup page
+- / > Participant Dashboard (requires login)
+- /events/:id > Event Details (requires login)
+- /my-events > My Registered Events (requires login)
+- /admin > Admin Dashboard (requires admin login)
+- /admin/events > Manage Events (requires admin login)
+- /admin/events/:id/participants > Participants List (requires admin login)
+- Any undefined route (*) will redirect to /.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 4. Running the Frontend
+```bash
+npm start
+```
 
-### `npm run eject`
+##### The frontend will run at http://localhost:3000
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+###### NB: make sure backend is running :)
