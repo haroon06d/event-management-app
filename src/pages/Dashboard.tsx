@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../api/api";
+import API, { port } from "../api/api";
 
 interface Event {
 	id: number;
@@ -15,7 +15,7 @@ interface Event {
 	registrationStatus?: "CONFIRMED" | "WAITLIST" | "CANCELLED";
 }
 
-const BACKEND_URL = "http://localhost:4000";
+const BACKEND_URL = port;
 
 const Dashboard = () => {
 	const [events, setEvents] = useState<Event[]>([]);

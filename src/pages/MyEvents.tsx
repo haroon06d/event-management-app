@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../api/api";
+import API, { port } from "../api/api";
 
 interface EventType {
 	id: number;
@@ -20,7 +20,7 @@ interface RegistrationType {
 	event: EventType;
 }
 
-const BACKEND_URL = "http://localhost:4000";
+const BACKEND_URL = port;
 
 const MyEvents: React.FC = () => {
 	const [registrations, setRegistrations] = useState<RegistrationType[]>([]);

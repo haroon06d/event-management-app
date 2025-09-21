@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import API from "../api/api";
+import API, { port } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
 
 interface Event {
@@ -16,7 +16,7 @@ interface Event {
 	registrationStatus?: "CONFIRMED" | "WAITLIST" | "CANCELLED";
 }
 
-const BACKEND_URL = "http://localhost:4000";
+const BACKEND_URL = port;
 
 const EventDetails = () => {
 	const { id } = useParams();
