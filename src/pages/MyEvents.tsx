@@ -1,18 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import API, { port } from "../api/api";
-
-interface EventType {
-	id: number;
-	title: string;
-	description: string;
-	datetime: string;
-	venue: string;
-	organiser: string;
-	participantLimit: number;
-	status: "DRAFT" | "PUBLISHED" | "CANCELLED";
-	image?: string;
-}
+import EventCard, { EventType } from "../components/EventCard"
 
 interface RegistrationType {
 	id: number;
@@ -34,7 +22,7 @@ const MyEvents: React.FC = () => {
 					const image = r.event.image && !r.event.image.startsWith("http")
 						? `${BACKEND_URL}${r.event.image}`
 						: r.event.image;
-					return { ...r, event: { ...r.event, image } };
+					return { ...r, event: { ...r.event, image, registrationStatus: r.status } };
 				});
 
 				setRegistrations(updatedRegs);
@@ -47,21 +35,12 @@ const MyEvents: React.FC = () => {
 	}, []);
 
 	return (
-		<div>
-			<h1>My Registered Events</h1>
-			{registrations.length === 0 && <p>You have not registered for any events yet.</p>}
+		<div style={{ padding: "40px 20px", fontFamily: "Arial, sans-serif" }}>
+			<h1 style={{ textAlign: "center", marginBottom: "20px" }}>My Registered Events</h1>
+			{registrations.length === 0 && <p style={{ textAlign: "center" }}>You have not registered for any events yet.</p>}
 
 			{registrations.map((r) => (
-				<div key={r.id} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
-					{r.event.image && <img src={r.event.image} alt={r.event.title} style={{ maxWidth: "200px" }} />}
-					<h3><Link to={`/events/${r.event.id}`}>{r.event.title}</Link></h3>
-					<p>{r.event.description}</p>
-					<p>Date: {new Date(r.event.datetime).toLocaleString()}</p>
-					<p>Venue: {r.event.venue}</p>
-					<p>Organiser: {r.event.organiser}</p>
-					<p>Status: {r.event.status}</p>
-					<p>Your Registration: {r.status}</p>
-				</div>
+				<EventCard key={r.id} event={r.event} showRegistrationStatus={true} />
 			))}
 		</div>
 	);

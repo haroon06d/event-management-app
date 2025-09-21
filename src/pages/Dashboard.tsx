@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import API, { port } from "../api/api";
-
-interface Event {
-	id: number;
-	title: string;
-	description: string;
-	datetime: string;
-	venue: string;
-	organiser: string;
-	participantLimit: number;
-	status: "DRAFT" | "PUBLISHED" | "CANCELLED";
-	image?: string;
-	registrationStatus?: "CONFIRMED" | "WAITLIST" | "CANCELLED";
-}
+import EventCard, { EventType } from "../components/EventCard"
 
 const BACKEND_URL = port;
 
 const Dashboard = () => {
-	const [events, setEvents] = useState<Event[]>([]);
+	const [events, setEvents] = useState<EventType[]>([]);
 
 	useEffect(() => {
 		const fetchEvents = async () => {
 			try {
 				const res = await API.get("/events");
-				const eventsWithFullImage = res.data.map((e: Event) => ({
+				const eventsWithFullImage = res.data.map((e: EventType) => ({
 					...e,
 					image: e.image && !e.image.startsWith("http") ? `${BACKEND_URL}${e.image}` : e.image,
 				}));
@@ -37,24 +24,14 @@ const Dashboard = () => {
 	}, []);
 
 	return (
-		<div>
-			<h1>Dashboard</h1>
+		<div style={{ padding: "40px 20px", fontFamily: "Arial, sans-serif", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+			<h1 style={{ textAlign: "center", marginBottom: "20px" }}>Dashboard</h1>
+			<h2 style={{ textAlign: "center", marginBottom: "20px" }}>Upcoming Events</h2>
 
-			<h2>Upcoming Events</h2>
-			{events.length === 0 && <p>No upcoming events.</p>}
+			{events.length === 0 && <p style={{ textAlign: "center" }}>No upcoming events.</p>}
+
 			{events.map((e) => (
-				<div key={e.id} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
-					{e.image && <img src={e.image} alt={e.title} style={{ maxWidth: "200px", marginBottom: "10px" }} />}
-					<h3>
-						<Link to={`/events/${e.id}`}>{e.title}</Link>
-					</h3>
-					<p>{e.description}</p>
-					<p>Date: {new Date(e.datetime).toLocaleString()}</p>
-					<p>Venue: {e.venue}</p>
-					<p>Organiser: {e.organiser}</p>
-					<p>Status: {e.status}</p>
-					{e.registrationStatus && <p>Your Registration: {e.registrationStatus}</p>}
-				</div>
+				<EventCard key={e.id} event={e} showRegistrationStatus={true} />
 			))}
 		</div>
 	);
