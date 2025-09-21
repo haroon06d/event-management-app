@@ -52,7 +52,6 @@ const AppRoutes = () => {
 					}
 				/>
 
-				{/* Admin routes */}
 				<Route path="/admin" element={
 					<RequireAuth>
 						<RequireAdmin>

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+export const port = "http://localhost:4000";
+
 const API = axios.create({
-	baseURL: "http://localhost:4000/api",
+	baseURL: `${port}/api`,
 });
 
 export const setToken = (token: string) => {
